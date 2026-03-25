@@ -1,50 +1,19 @@
 ---
 name: aidirs-token-submit
-description: Generate aidirs API tokens through the authenticated token-creation API or the dashboard token page, then submit one or more website URLs to aidirs via the authenticated submit API. Use when the user asks to create a token, rotate/revoke a token, verify aidirs token usage, or submit sites to aidirs programmatically with Bearer authentication.
+description:
+  Submit one or more website URLs to aidirs via the authenticated submit API using Bearer authentication. Use when the
+  user asks to submit sites to aidirs programmatically with Bearer authentication.
 ---
 
 # Aidirs Token Submit
 
 ## Overview
 
-Use this skill to handle the full aidirs API submission flow: create a token through the authenticated API (preferred) or dashboard, then use that token to submit URLs to `/api/submit`.
+Use this skill to submit URLs to aidirs via the authenticated submit API using Bearer authentication.
 
 ## Workflow
 
-### 1. Create or manage a token
-
-Preferred creation path:
-
-- `POST /api/token/create`
-- requires an authenticated aidirs session cookie
-- request body: `{ "name": "My Integration" }`
-
-Example:
-
-```bash
-curl -X POST "$AIDIRS_BASE_URL/api/token/create" \
-  -H "Content-Type: application/json" \
-  -b cookie.txt -c cookie.txt \
-  -d '{"name":"My Integration"}'
-```
-
-Fallback/operator path:
-
-- Settings page: `/settings`
-- Token page: `/settings/tokens`
-
-On that page they can:
-
-- create a token
-- rename a token
-- enable/disable a token
-- rotate a token
-- delete a token
-- inspect `lastUsedAt`
-
-Use the API route when the goal is automation. Use the dashboard when the user wants manual control.
-
-### 2. Confirm the target host
+### 1. Confirm the target host
 
 Before showing commands, identify the real aidirs base URL the user wants to hit, for example:
 
@@ -55,7 +24,7 @@ Before showing commands, identify the real aidirs base URL the user wants to hit
 
 Use the exact host in examples and scripts.
 
-### 3. Submit a URL with Bearer auth
+### 2. Submit a URL with Bearer auth
 
 Aidirs submission endpoint:
 
@@ -76,7 +45,7 @@ If the user wants to preview the AI-fetched site metadata without creating the r
 
 - `POST /api/fetch-website`
 
-### 4. Interpret responses
+### 3. Interpret responses
 
 Common outcomes:
 
@@ -97,9 +66,7 @@ If a request fails, check in this order:
 
 If you need a reusable CLI flow, use:
 
-- `scripts/create-token.sh` to create a token with an authenticated cookie jar
 - `scripts/submit-url.sh` to submit a URL with a Bearer token
-- `scripts/create-token-and-submit.sh` to do both in sequence
 
 Rules:
 
