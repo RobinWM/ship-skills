@@ -22,6 +22,8 @@ description:
 
 ### 1. Login — 浏览器授权
 
+> **注意：** 提交 URL 需要订阅计划。
+
 ```bash
 submit-to-cli login
 ```
