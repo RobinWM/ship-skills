@@ -1,12 +1,12 @@
 ---
-name: submit-to-cli
+name: dirs-submit
 description:
   CLI tool wrapping aidirs.org and backlinkdirs.com submission APIs. Use when the user needs to submit a URL
   or preview site metadata via CLI. Supports three commands: login (browser-based OAuth), submit (send URL),
   and fetch (preview without submitting).
 ---
 
-# submit-to-cli
+# dirs-submit
 
 ## Overview
 

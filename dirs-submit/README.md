@@ -1,4 +1,4 @@
-# submit-to-cli
+# dirs-submit
 
 CLI tool for submitting URLs to [aidirs.org](https://aidirs.org) and [backlinkdirs.com](https://backlinkdirs.com).
 
