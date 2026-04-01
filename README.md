@@ -4,8 +4,5 @@ Private skill repository for Brennan's reusable OpenClaw/Agent skills.
 
 ## Skills
 
-- `aidirs-token-submit` — create aidirs API tokens and submit URLs via API
+- `submit-to-cli` — CLI tool for submitting URLs to aidirs.org and backlinkdirs.com via browser-based OAuth login
 
-## Packaged skills
-
-Built `.skill` bundles live in `dist/`.
