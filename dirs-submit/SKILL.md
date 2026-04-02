@@ -10,13 +10,13 @@ description:
 
 ## Overview
 
-`submit-to-cli` 封装 aidirs.org / backlinkdirs.com 的提交 API，提供三个命令：
+`submit-dir` 封装 aidirs.org / backlinkdirs.com 的提交 API，提供三个命令：
 
 - `login` — 浏览器授权，自动获取并存储 Token
 - `submit <url>` — 提交 URL
 - `fetch <url>` — 仅预览网站元数据，不提交
 
-凭证存储在 `~/.config/submit-to-cli/config.json`。
+凭证存储在 `~/.config/submit-dir/config.json`。
 
 ## Workflow
 
@@ -25,7 +25,7 @@ description:
 > **注意：** 提交 URL 需要订阅计划。
 
 ```bash
-submit-to-cli login
+submit-dir login
 ```
 
 1. 选择站点（aidirs.org 或 backlinkdirs.com）
@@ -38,7 +38,7 @@ submit-to-cli login
 ### 2. Submit — 提交 URL
 
 ```bash
-submit-to-cli submit <url>
+submit-dir submit <url>
 ```
 
 内部调用：
@@ -65,14 +65,14 @@ Skill 执行后会返回 CLI 的 stdout。AI Agent 应根据输出内容向用�
 | 状态码 | 含义 | Skill 应告知用户 |
 |--------|------|----------------|
 | 400 | link 参数缺失或格式错误、重复站点 | 直接告知具体错误原因 |
-| 401 | Token 无效或未授权 | 告知用户 Token 无效，引导重新运行 `submit-to-cli login` |
+| 401 | Token 无效或未授权 | 告知用户 Token 无效，引导重新运行 `submit-dir login` |
 | 402 | 需要订阅计划才能提交 | **友好提示**：告知用户需要订阅，附上 `upgradeUrl` 引导去订阅页面 |
 | 500 | 服务器错误 | 告知用户稍后重试 |
 
 ### 3. Fetch — 预览元数据
 
 ```bash
-submit-to-cli fetch <url>
+submit-dir fetch <url>
 ```
 
 调用 `POST /api/fetch-website`，不创建提交记录。
@@ -81,7 +81,7 @@ submit-to-cli fetch <url>
 
 | 来源 | 键 | 说明 |
 |------|----|------|
-| 配置文件 | `~/.config/submit-to-cli/config.json` | 本地存储的凭证（优先） |
+| 配置文件 | `~/.config/submit-dir/config.json` | 本地存储的凭证（优先） |
 | 环境变量 | `DIRS_TOKEN` | Bearer Token（备用） |
 | 环境变量 | `DIRS_BASE_URL` | API Base URL（备用） |
 | CLI 默认 | Base URL | `https://aidirs.org` |
@@ -100,5 +100,5 @@ submit-to-cli fetch <url>
 ```bash
 export DIRS_BASE_URL="https://aidirs.org"
 export DIRS_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-submit-to-cli submit https://example.com
+submit-dir submit https://example.com
 ```
