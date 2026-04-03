@@ -12,6 +12,7 @@
 
 - Login first: `clawhub login`
 - Dry run: `bash ./scripts/sync-clawhub.sh --dry-run`
-- Publish all changed skills: `bash ./scripts/sync-clawhub.sh --all`
+- Publish repo skills only: `bash ./scripts/sync-clawhub.sh --all`
+- Publish implementation uses explicit per-folder `clawhub publish`, not global `clawhub sync`
 - Main implementation lives in `scripts/sync-clawhub.mjs`
 - CI workflow: `.github/workflows/test.yml`
