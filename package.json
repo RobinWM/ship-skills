@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "test": "node ./scripts/sync-clawhub.mjs --root ./skills --dry-run",
-    "publish:dry": "bash ./scripts/sync-clawhub.sh --dry-run"
+    "publish:dry": "bash ./scripts/sync-clawhub.sh --dry-run",
+    "publish:all": "bash ./scripts/sync-clawhub.sh --all"
   }
 }

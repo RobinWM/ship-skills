@@ -9,8 +9,13 @@ if ! command -v node >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! command -v clawhub >/dev/null 2>&1; then
+  echo "Error: clawhub CLI is required."
+  exit 1
+fi
+
 if [ "$#" -eq 0 ]; then
-  set -- --all
+  set -- --dry-run
 fi
 
 exec node "${ROOT_DIR}/scripts/sync-clawhub.mjs" --root "${SKILLS_DIR}" "$@"

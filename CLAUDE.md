@@ -8,7 +8,10 @@
 - Put repo automation in `scripts/`
 - Keep root README files as marketplace-style navigation docs
 
-## Release direction
+## Release flow
 
-- `scripts/sync-clawhub.sh` is the entry point for future publish flow
-- `.github/workflows/test.yml` should stay green on every push
+- Login first: `clawhub login`
+- Dry run: `bash ./scripts/sync-clawhub.sh --dry-run`
+- Publish all changed skills: `bash ./scripts/sync-clawhub.sh --all`
+- Main implementation lives in `scripts/sync-clawhub.mjs`
+- CI workflow: `.github/workflows/test.yml`

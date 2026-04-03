@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -6,6 +7,10 @@ const args = process.argv.slice(2);
 const rootFlag = args.indexOf('--root');
 const root = rootFlag >= 0 ? path.resolve(args[rootFlag + 1]) : path.resolve('skills');
 const dryRun = args.includes('--dry-run');
+const passthrough = args.filter((arg, index) => {
+  if (rootFlag >= 0 && (index === rootFlag || index === rootFlag + 1)) return false;
+  return true;
+});
 
 if (!fs.existsSync(root)) {
   console.error(`Skills root not found: ${root}`);
@@ -27,9 +32,22 @@ for (const skill of skills) {
   console.log(`- ${skill}`);
 }
 
-if (dryRun) {
-  console.log('\nDry run only. No publish step executed.');
-  process.exit(0);
+const whoami = spawnSync('clawhub', ['whoami'], { encoding: 'utf8' });
+if (whoami.status !== 0) {
+  if (dryRun) {
+    console.log('\nNot logged in to ClawHub. Dry run stops at local discovery.');
+    process.exit(0);
+  }
+  console.error('\nNot logged in to ClawHub. Run `clawhub login` first.');
+  process.exit(1);
 }
 
-console.log('\nPublish step not implemented yet. Wire ClawHub publish here when ready.');
+console.log(`\nClawHub auth OK: ${whoami.stdout.trim()}`);
+
+const syncArgs = ['sync', '--root', root];
+for (const arg of passthrough) syncArgs.push(arg);
+if (!passthrough.includes('--all') && !dryRun) syncArgs.push('--all');
+
+console.log(`\n> clawhub ${syncArgs.join(' ')}`);
+const result = spawnSync('clawhub', syncArgs, { stdio: 'inherit' });
+process.exit(result.status ?? 1);
