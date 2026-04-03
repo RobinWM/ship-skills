@@ -41,6 +41,18 @@ skills/dirs-submit
 - 版本检查与自更新说明
 - 成功/鉴权失败/订阅失败示例
 
+## Claude Code Marketplace
+
+仓库已补上 `.claude-plugin/marketplace.json`，目标是支持类似下面的安装方式：
+
+```text
+/plugin marketplace add RobinWM/ship-skills
+```
+
+当前暴露的 plugin：
+
+- `ship-skills` → `./skills/dirs-submit`
+
 ## 发布
 
 ```bash

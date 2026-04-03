@@ -1,3 +1,7 @@
-# .claude-plugin
+# Claude Code Marketplace
 
-Plugin marketplace metadata can live here later.
+This repository exposes a single Claude Code marketplace plugin via `.claude-plugin/marketplace.json`.
+
+Current plugin:
+
+- `ship-skills` → includes `./skills/dirs-submit`

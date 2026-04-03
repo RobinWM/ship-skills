@@ -48,6 +48,20 @@ Includes:
 - version check and self-update guidance
 - examples for success / auth failure / subscription failure
 
+## Claude Code Marketplace
+
+This repo now includes `.claude-plugin/marketplace.json` for marketplace-style installation.
+
+Target usage:
+
+```text
+/plugin marketplace add RobinWM/ship-skills
+```
+
+Plugin exposed:
+
+- `ship-skills` → `./skills/dirs-submit`
+
 ## Release
 
 ```bash
@@ -67,4 +81,4 @@ See `docs/release.md` for versioning and changelog conventions.
 - `packages/` — optional shared packages
 - `.github/workflows/` — GitHub Actions workflows
 - `.claude/skills/release-skills/` — internal release helper skill
-- `.claude-plugin/` — marketplace/plugin metadata if needed later
+- `.claude-plugin/` — Claude Code marketplace metadata

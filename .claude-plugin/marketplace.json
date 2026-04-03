@@ -1,0 +1,22 @@
+{
+  "name": "ship-skills",
+  "owner": {
+    "name": "RobinWM",
+    "email": "v517649974769@gmail.com"
+  },
+  "metadata": {
+    "description": "Reusable skills for the Ship ecosystem",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "ship-skills",
+      "description": "Ship CLI and workflow skills",
+      "source": "./",
+      "strict": true,
+      "skills": [
+        "./skills/dirs-submit"
+      ]
+    }
+  ]
+}
