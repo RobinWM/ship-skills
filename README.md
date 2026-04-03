@@ -37,6 +37,8 @@ Location:
 skills/dirs-submit
 ```
 
+Version: `0.1.0`
+
 Includes:
 
 - browser login flow
@@ -45,6 +47,16 @@ Includes:
 - metadata preview via `fetch`
 - version check and self-update guidance
 - examples for success / auth failure / subscription failure
+
+## Release
+
+```bash
+clawhub login
+npm run publish:dry
+npm run publish:all
+```
+
+See `docs/release.md` for versioning and changelog conventions.
 
 ## Directory Roles
 

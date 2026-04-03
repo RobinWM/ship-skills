@@ -7,6 +7,9 @@ const args = process.argv.slice(2);
 const rootFlag = args.indexOf('--root');
 const root = rootFlag >= 0 ? path.resolve(args[rootFlag + 1]) : path.resolve('skills');
 const dryRun = args.includes('--dry-run');
+const changelogFlag = args.indexOf('--changelog');
+const tagsFlag = args.indexOf('--tags');
+const bumpFlag = args.indexOf('--bump');
 const passthrough = args.filter((arg, index) => {
   if (rootFlag >= 0 && (index === rootFlag || index === rootFlag + 1)) return false;
   return true;
@@ -47,6 +50,9 @@ console.log(`\nClawHub auth OK: ${whoami.stdout.trim()}`);
 const syncArgs = ['sync', '--root', root];
 for (const arg of passthrough) syncArgs.push(arg);
 if (!passthrough.includes('--all') && !dryRun) syncArgs.push('--all');
+if (changelogFlag < 0 && !dryRun) syncArgs.push('--changelog', 'Repository sync release');
+if (tagsFlag < 0) syncArgs.push('--tags', 'latest,ship');
+if (bumpFlag < 0 && !dryRun) syncArgs.push('--bump', 'patch');
 
 console.log(`\n> clawhub ${syncArgs.join(' ')}`);
 const result = spawnSync('clawhub', syncArgs, { stdio: 'inherit' });

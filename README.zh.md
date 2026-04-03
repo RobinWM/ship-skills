@@ -30,6 +30,8 @@ ship-skills/
 skills/dirs-submit
 ```
 
+版本：`0.1.0`
+
 包含：
 
 - 浏览器登录
@@ -38,3 +40,13 @@ skills/dirs-submit
 - `fetch` 元数据预览
 - 版本检查与自更新说明
 - 成功/鉴权失败/订阅失败示例
+
+## 发布
+
+```bash
+clawhub login
+npm run publish:dry
+npm run publish:all
+```
+
+版本规则和 changelog 约定见 `docs/release.md`。

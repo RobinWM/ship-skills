@@ -4,6 +4,10 @@ description:
   CLI tool for the `ship` command wrapping aidirs.org and backlinkdirs.com submission APIs. Use when the user
   needs to login, submit a URL, preview site metadata, check CLI version, or self-update the CLI from terminal.
   Supports browser login, per-site token storage, submit/fetch commands, version checks, and self-update.
+version: 0.1.0
+metadata:
+  openclaw:
+    homepage: https://github.com/RobinWM/ship-skills#dirs-submit
 ---
 
 # dirs-submit
