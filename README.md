@@ -17,12 +17,28 @@ ship-skills/
 
 ## Skills
 
-- `skills/dirs-submit` — submit URLs to aidirs.org and backlinkdirs.com via the `ship` CLI
+### dirs-submit
 
-## Notes
+Submit URLs to `aidirs.org` and `backlinkdirs.com` through the `ship` CLI.
 
-- `SKILL.md` is the agent-facing execution spec
-- `README.md` is the human-facing usage guide
-- `examples/` shows expected outputs and common error results
-- `references/` stores longer docs so `SKILL.md` stays lean
+Location:
 
+```text
+skills/dirs-submit
+```
+
+Includes:
+
+- browser login flow
+- per-site token storage
+- URL submission
+- metadata preview via `fetch`
+- version check and self-update guidance
+- examples for success / auth failure / subscription failure
+
+## Conventions
+
+- `SKILL.md` = agent-facing execution spec
+- `README.md` = human-facing overview and usage
+- `examples/` = concrete outputs and result shapes
+- `references/` = detailed docs kept out of the main skill file
