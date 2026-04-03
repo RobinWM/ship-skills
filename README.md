@@ -2,17 +2,27 @@
 
 Reusable OpenClaw/Agent skills for the Ship ecosystem.
 
-## Structure
+## Repository Structure
 
 ```text
 ship-skills/
+├─ .claude-plugin/
+├─ .claude/skills/release-skills/
+├─ .github/workflows/
+├─ docs/
+├─ packages/
+├─ screenshots/
+├─ scripts/
+├─ skills/
+├─ .gitignore
+├─ .releaserc.yml
+├─ CHANGELOG.md
+├─ CHANGELOG.zh.md
+├─ CLAUDE.md
 ├─ README.md
-└─ skills/
-   └─ dirs-submit/
-      ├─ SKILL.md
-      ├─ README.md
-      ├─ examples/
-      └─ references/
+├─ README.zh.md
+├─ package-lock.json
+└─ package.json
 ```
 
 ## Skills
@@ -36,9 +46,13 @@ Includes:
 - version check and self-update guidance
 - examples for success / auth failure / subscription failure
 
-## Conventions
+## Directory Roles
 
-- `SKILL.md` = agent-facing execution spec
-- `README.md` = human-facing overview and usage
-- `examples/` = concrete outputs and result shapes
-- `references/` = detailed docs kept out of the main skill file
+- `skills/` — public skill folders
+- `scripts/` — repo automation and release helpers
+- `docs/` — longer project docs
+- `screenshots/` — images used in docs
+- `packages/` — optional shared packages
+- `.github/workflows/` — GitHub Actions workflows
+- `.claude/skills/release-skills/` — internal release helper skill
+- `.claude-plugin/` — marketplace/plugin metadata if needed later
