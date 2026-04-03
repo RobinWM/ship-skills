@@ -1,6 +1,6 @@
-# brennan-skills
+# ship-skills
 
-Private skill repository for Brennan's reusable OpenClaw/Agent skills.
+Private skill repository for Ship reusable OpenClaw/Agent skills.
 
 ## Skills
 
