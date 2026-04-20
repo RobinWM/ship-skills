@@ -1,9 +1,9 @@
 ---
 name: dirs-submit
 description:
-  CLI tool for the `ship` command wrapping aidirs.org and backlinkdirs.com submission APIs. Use when the user
-  needs to login, submit a URL, preview site metadata, check CLI version, or self-update the CLI from terminal.
-  Supports browser login, per-site token storage, submit/fetch commands, version checks, and self-update.
+  CLI tool for the `ship` command wrapping aidirs.org and backlinkdirs.com submission APIs. Use when the user needs to
+  login, submit a URL, preview site metadata, check CLI version, or self-update the CLI from terminal. Supports browser
+  login, per-site token storage, submit/fetch commands, version checks, and self-update.
 version: 0.1.0
 metadata:
   openclaw:
@@ -93,11 +93,10 @@ ship submit <url>
 示例：
 
 ```bash
-ship submit https://example.com
-ship submit https://example.com --site aidirs.org
-ship submit https://example.com --site backlinkdirs.com
-ship submit https://example.com --json
-ship submit https://example.com --quiet
+ship submit https://example.com --source ai-agent
+ship submit https://example.com --source ai-agent --site aidirs.org
+ship submit https://example.com --source ai-agent --site backlinkdirs.com
+ship submit https://example.com --source ai-agent --quiet
 ```
 
 内部调用：
@@ -154,22 +153,22 @@ Skill 执行 CLI 后，应根据输出向用户自然语言转述：
 
 ## 常见错误
 
-| 状态码/情况 | 含义 | Skill 应告知用户 |
-|---|---|---|
-| 400 | URL 参数错误、重复站点等 | 直接告知具体错误原因 |
-| 401 | Token 无效或未授权 | 提示重新运行 `ship login` |
-| 402 | 需要订阅计划 | 友好提示订阅，并附 `upgradeUrl` |
-| 500 | 服务器错误 | 告知稍后重试 |
-| timeout/network | 网络超时或请求失败 | 告知网络问题并建议重试 |
+| 状态码/情况     | 含义                     | Skill 应告知用户                |
+| --------------- | ------------------------ | ------------------------------- |
+| 400             | URL 参数错误、重复站点等 | 直接告知具体错误原因            |
+| 401             | Token 无效或未授权       | 提示重新运行 `ship login`       |
+| 402             | 需要订阅计划             | 友好提示订阅，并附 `upgradeUrl` |
+| 500             | 服务器错误               | 告知稍后重试                    |
+| timeout/network | 网络超时或请求失败       | 告知网络问题并建议重试          |
 
 ## Environment / Config Reference
 
-| 来源 | 键 | 说明 |
-|---|---|---|
+| 来源     | 键                           | 说明                 |
+| -------- | ---------------------------- | -------------------- |
 | 配置文件 | `~/.config/ship/config.json` | 本地存储多站点 token |
-| 环境变量 | `DIRS_TOKEN` | Bearer Token（备用） |
-| 环境变量 | `DIRS_BASE_URL` | API Base URL（备用） |
-| CLI 参数 | `--site` | 显式切换站点 |
+| 环境变量 | `DIRS_TOKEN`                 | Bearer Token（备用） |
+| 环境变量 | `DIRS_BASE_URL`              | API Base URL（备用） |
+| CLI 参数 | `--site`                     | 显式切换站点         |
 
 环境变量仍兼容，但优先推荐使用 `ship login` 写入配置。
 
