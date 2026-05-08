@@ -15,7 +15,8 @@
       "source": "./",
       "strict": true,
       "skills": [
-        "./skills/dirs-submit"
+        "./skills/dirs-submit",
+        "./skills/domain-handler"
       ]
     }
   ]

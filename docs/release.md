@@ -3,6 +3,7 @@
 ## Current skill versions
 
 - `dirs-submit`: `0.1.0`
+- `domain-handler`: `0.1.0`
 
 ## Versioning rule
 
