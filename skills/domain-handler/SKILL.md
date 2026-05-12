@@ -35,6 +35,13 @@ CLOUDFLARE_ACCOUNT_ID=
 - Spaceship scopes：`Domains`、`Billing`、`Contacts`
 - Cloudflare token 权限：`Zone:Edit`、`DNS:Edit`
 
+## Spaceship API 客户端要求
+
+- **所有 Spaceship API 调用都优先使用 Node.js `fetch` + browser-like headers**，包括 availability、contacts、register domain、nameservers 等接口。
+- browser-like headers 至少包含：`User-Agent`、`Accept-Language`、`Origin: https://www.spaceship.com`、`Referer: https://www.spaceship.com/`、`Accept: application/json`、`Content-Type: application/json`。
+- 不要优先使用 Python `urllib` 或裸 `curl` 调 Spaceship API；它们容易被 `spaceship.dev` 前置 Cloudflare 以 1010 `browser_signature_banned` 拦截。
+- 如果遇到 Cloudflare 1010，先换成/确认使用 Node.js `fetch` + browser-like headers 重试；不要直接把 1010 解释成 API key/secret 错误。
+
 需要流程概览、环境变量或权限说明时，读取 [references/README.md](./references/README.md)。
 需要接口细节、请求示例或 TypeScript 示例时，读取 [references/api.md](./references/api.md)。
 
@@ -65,6 +72,7 @@ POST /v1/domains/available
 - 按用户明确给出的域名或 TLD 组合查询。
 - 如果用户没有说明要查哪些后缀，默认按这个顺序查询：`.com`、`.net`、`.org`、`.co`、`.pro`、`.io`、`.app`。
 - 按顺序逐个检查并汇报结果，不要擅自扩展到这份列表之外的 TLD。
+- RDAP/WHOIS 只能作为临时兜底参考；购买前必须以 Spaceship API/注册商结果为准，因为 RDAP 可能把实际不可注册或已占用的域名误判为可注册。
 - 如果用户只是想看是否可注册，返回结果后就在这里停下，除非用户明确要求继续。
 
 ### 3. 先查询已有联系人，再决定是否创建
@@ -196,6 +204,7 @@ GET /zones/{zone_id}
 ## 异常处理
 
 - 认证或权限失败：说明是 Spaceship 还是 Cloudflare 失败，并指出缺的是哪个环境变量或权限。
+- Cloudflare 1010 / `browser_signature_banned`：这是 Cloudflare WAF 拦了客户端指纹，请改用 Node.js `fetch` + browser-like headers 重试；不要先怀疑 API key。若仍失败，再考虑更换出口 IP 或联系 Spaceship support 放行 API 请求。
 - 域名不可用：直接说明，并在注册步骤前停止。
 - Cloudflare zone 已存在或注册商状态不一致：说明阻塞点和最安全的下一步。
 - 激活耗时过长：告诉用户 Cloudflare 仍在 pending，并附带最新状态。

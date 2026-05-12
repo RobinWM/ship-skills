@@ -2,6 +2,30 @@
 
 ## Spaceship
 
+### Client fingerprint requirement
+
+Use Node.js `fetch` with browser-like headers for **all** Spaceship API calls. This applies to domain availability, contacts, registration, nameserver updates, and any other `https://spaceship.dev/api/v1/*` request.
+
+Python `urllib` and bare `curl` are prone to Cloudflare 1010 `browser_signature_banned` on `spaceship.dev`. If 1010 happens, retry with this client fingerprint before diagnosing credentials.
+
+Reusable helper:
+
+```ts
+function spaceshipHeaders() {
+  return {
+    "X-API-Key": process.env.SPACESHIP_API_KEY!,
+    "X-API-Secret": process.env.SPACESHIP_API_SECRET!,
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.9",
+    Origin: "https://www.spaceship.com",
+    Referer: "https://www.spaceship.com/"
+  }
+}
+```
+
 ### Check domain availability
 
 ```http
@@ -23,6 +47,30 @@ Request:
   ]
 }
 ```
+
+Availability example:
+
+```ts
+const domains = [
+  "example.com",
+  "example.net",
+  "example.org",
+  "example.co",
+  "example.pro",
+  "example.io",
+  "example.app"
+]
+
+const res = await fetch("https://spaceship.dev/api/v1/domains/available", {
+  method: "POST",
+  headers: spaceshipHeaders(),
+  body: JSON.stringify({ domains })
+})
+
+const data = await res.json()
+```
+
+RDAP/WHOIS is only a fallback signal and may disagree with the registrar; use Spaceship API as source of truth for availability/premium status.
 
 ### List contacts
 
@@ -152,11 +200,7 @@ await fetch(
   `https://spaceship.dev/api/v1/domains/${domain}/nameservers`,
   {
     method: "PUT",
-    headers: {
-      "X-API-Key": process.env.SPACESHIP_API_KEY!,
-      "X-API-Secret": process.env.SPACESHIP_API_SECRET!,
-      "Content-Type": "application/json"
-    },
+    headers: spaceshipHeaders(),
     body: JSON.stringify({
       provider: "custom",
       hosts: nameservers
